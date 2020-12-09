@@ -5,7 +5,6 @@
   "engines": {
     "node": "15.2.1"
   },
-  "main": "index.js",
   "scripts": {
     "start": "node server/server.js",
     "nodemon": "nodemon server/server.js",
