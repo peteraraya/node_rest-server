@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // vincular con routes usuarios
-app.use( require('./routes/usuario'));
+app.use( require('./routes/usuario')); 
 
 // mongoose connect
 mongoose.connect(
