@@ -18,11 +18,11 @@ app.get("/usuario", function (req, res) {
     // Para obtner un get de la BD  utilizando find
 
     // Paginación  : si viene la variable  o asume que parte desde 0 
-    let desde = req.query.desde || 0;
+    let desde = req.params.desde || 0;
     // transformo string a number
     desde = Number(desde);
 
-    let limite = req.query.limite || 5;  // si no espesifica la página lo dejo en 5
+    let limite = req.params.limite || 5;  // si no espesifica la página lo dejo en 5
     limite = Number(limite);
     
     // estado: true --> condición que muestra solo registros con estado true
