@@ -1,59 +1,37 @@
-require('./config/config');
+require("./config/config");
+// express
+const express = require("express");
+// mongoose
+const mongoose = require("mongoose");
 
-const express = require('express');
 const app = express();
 
 // bodyparser
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
+// vincular con routes usuarios
+app.use( require('./routes/usuario'));
 
-// GET
-app.get('/usuario', function (req, res) {
-    res.json('getusuario')
+// mongoose connect
+mongoose.connect(
+  process.env.urlDB,
+  {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  },
+  (err, res) => {
+    // definir un callback en caso de abrir o no la conexion
+    if ( err ) throw err;
+    console.log("BD Online");
+  }
+);
+
+app.listen(process.env.PORT, () => {
+  console.log("escuchando puerto 3000");
 });
-// POST
-app.post('/usuario', function (req, res) {
-
-    // procesará todo el body
-    let body = req.body;
-
-    if ( body.nombre === undefined) {
-        
-        res.status(400).json({
-            ok: false,
-            mensaje:'el nombre es necesario'
-        }); // bad request
-
-    }else{
-
-        res.json({
-            persona: body
-        });
-    }
-
-});
-// PUT
-app.put('/usuario/:id', function (req, res) {
-    // obtengo el parametro de la ruta
-    let id = req.params.id; 
-    // retorne lo que sea que envie en el url
-    res.json({
-        id
-    });
-
-});
-
-app.delete('/usuario', function (req, res) {
-    res.json('deleteusuario')
-});
-
-app.listen(process.env.PORT, () =>{
-    console.log('escuchando puerto 3000');
-});
-
-
-// 
